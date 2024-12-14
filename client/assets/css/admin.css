@@ -1,0 +1,416 @@
+:root {
+    --neon-green: #39ff14;
+    --dark-bg: #0a0a0a;
+    --matrix-green: #00ff41;
+    --card-bg: rgba(16, 16, 16, 0.95);
+    --accent: #ff003c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', monospace;
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: var(--neon-green);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0,0,0,0.92), rgba(0,0,0,0.92)),
+                repeating-linear-gradient(0deg, 
+                    transparent 0px, 
+                    transparent 1px, 
+                    rgba(0, 255, 65, 0.1) 1px, 
+                    rgba(0, 255, 65, 0.1) 2px);
+    background-size: 100% 100%, 100px 100px;
+    z-index: -1;
+}
+
+.grid {
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background-image: 
+        linear-gradient(rgba(57, 255, 20, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(57, 255, 20, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    transform: perspective(100vh) rotateX(60deg);
+    animation: grid-move 15s linear infinite;
+    z-index: -1;
+}
+
+@keyframes grid-move {
+    0% {
+        transform: perspective(100vh) rotateX(60deg) translateY(0);
+    }
+    100% {
+        transform: perspective(100vh) rotateX(60deg) translateY(50px);
+    }
+}
+
+.navbar {
+    background: var(--card-bg);
+    padding: 1rem;
+    border-bottom: 2px solid var(--neon-green);
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
+}
+
+.nav-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--neon-green);
+    text-shadow: 0 0 5px var(--neon-green);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--neon-green);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid transparent;
+    transition: all 0.3s;
+}
+
+.nav-links a:hover {
+    border-color: var(--neon-green);
+    box-shadow: 0 0 10px var(--neon-green);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--neon-green);
+    padding: 1.5rem;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.1);
+    transition: all 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+}
+
+.card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--neon-green);
+    padding-bottom: 0.5rem;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    color: var(--accent);
+    text-shadow: 0 0 5px rgba(255, 0, 60, 0.5);
+}
+
+.event-card {
+    border-left: 4px solid var(--accent);
+}
+
+.event-date {
+    color: var(--accent);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: rgba(57, 255, 20, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.progress-bar .fill {
+    height: 100%;
+    background: var(--neon-green);
+    width: 75%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(57, 255, 20, 0.2);
+}
+
+th {
+    color: var(--neon-green);
+}
+
+.badge {
+    background: var(--accent);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.8rem;
+}
+
+.badge-b {
+    background: rgb(51, 51, 255);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.8rem;
+}
+
+.welcome-banner {
+    text-align: center;
+    margin: 4rem 0;
+    animation: glitch 1s infinite;
+}
+
+@keyframes glitch {
+    0% {
+        text-shadow: 0.05em 0 0 var(--accent), -0.05em -0.025em 0 var(--neon-green);
+    }
+    14% {
+        text-shadow: 0.05em 0 0 var(--accent), -0.05em -0.025em 0 var(--neon-green);
+    }
+    15% {
+        text-shadow: -0.05em -0.025em 0 var(--accent), 0.025em 0.025em 0 var(--neon-green);
+    }
+    49% {
+        text-shadow: -0.05em -0.025em 0 var(--accent), 0.025em 0.025em 0 var(--neon-green);
+    }
+    50% {
+        text-shadow: 0.025em 0.05em 0 var(--accent), 0.05em 0 0 var(--neon-green);
+    }
+    99% {
+        text-shadow: 0.025em 0.05em 0 var(--accent), 0.05em 0 0 var(--neon-green);
+    }
+    100% {
+        text-shadow: -0.025em 0 0 var(--accent), -0.025em -0.025em 0 var(--neon-green);
+    }
+}
+
+.welcome-banner h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+
+ /* Styles pour les modales */
+ .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--card-bg);
+    border: 1px solid var(--neon-green);
+    padding: 2rem;
+    border-radius: 5px;
+    width: 90%;
+    max-width: 500px;
+    z-index: 1001;
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+    display: none;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--neon-green);
+}
+
+.modal-title {
+    color: var(--neon-green);
+    margin: 0;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    color: var(--neon-green);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    line-height: 1;
+}
+
+.close-modal:hover {
+    color: var(--accent);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    color: var(--neon-green);
+    margin-bottom: 0.5rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--neon-green);
+    color: white;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+}
+
+.form-input:focus {
+    outline: none;
+    box-shadow: 0 0 10px var(--neon-green);
+}
+
+.btn-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--neon-green);
+    background: transparent;
+    color: var(--neon-green);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn:hover {
+    background: var(--neon-green);
+    color: var(--dark-bg);
+    box-shadow: 0 0 15px var(--neon-green);
+}
+
+.btn-cancel {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.btn-cancel:hover {
+    background: var(--accent);
+    color: var(--dark-bg);
+    box-shadow: 0 0 15px var(--accent);
+}
+
+/* Animation pour les modales */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translate(-50%, -60%); opacity: 0; }
+    to { transform: translate(-50%, -50%); opacity: 1; }
+}
+
+.modal-overlay.active {
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal.active {
+    display: block;
+    animation: slideIn 0.3s ease-out;
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem;
+    border-radius: 5px;
+    color: white;
+    z-index: 1002;
+    transform: translateX(120%);
+    transition: transform 0.3s ease-out;
+}
+
+.notification.success {
+    background: var(--neon-green);
+}
+
+.notification.error {
+    background: var(--accent);
+}
+
+.notification.show {
+    transform: translateX(0);
+}

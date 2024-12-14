@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+    <div class="matrix-bg"></div>
+    <div class="grid"></div>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">Z0N301 D4K4r</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#events">Event</a>
+                <a href="#teams">Teams</a>
+            </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>CTF_HUB</h1>
+            <p>Take on the challenge. Hack. Learn. Evolve.</p>
+            <a href="  https:
+                target="_blank" class="cta-button">Join the Community</a>
+            <a href="#events" class="cta-button">View Events</a>
+        </div>
+    </section>
+
+    <section class="events-section" id="events">
+        <div class="container">
+            <h2>Upcoming Events</h2>
+            <div class="events-grid" id="events-grid"></div>
+
+        </div>
+
+        </div>
+    </section>
+    <section class="teams-section" id="teams">
+        <div class="container">
+            <h2>Team Rankings</h2>
+            <div class="teams-container">
+                <div class="team-column red-team">
+                    <div class="team-header">
+                        <h3>Red Team</h3>
+                        <div class="team-score" id="red_team_score">0 pts</div>
+                    </div>
+                    <div class="team-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="red_team_member"></div>
+                            <div class="stat-label">Members</div>
+                        </div>
+                        <div class="stat-item">
+                        </div>
+                        <div class="stat-item">
+                        </div>
+                    </div>
+                    <table class="team-members">
+                        <thead>
+                            <tr>
+                                <th class="rank">#</th>
+                                <th>Member</th>
+                                <th class="points">Points</th>
+                            </tr>
+                        </thead>
+                        <tbody id="red_team_table">
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="team-column blue-team">
+                    <div class="team-header">
+                        <h3>Blue Team</h3>
+                        <div class="team-score" id="blue_team_score">0 pts</div>
+                    </div>
+                    <div class="team-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="blue_team_member"></div>
+                            <div class="stat-label">Members</div>
+                        </div>
+                        <div class="stat-item">
+
+                        </div>
+                        <div class="stat-item">
+                        </div>
+                    </div>
+                    <table class="team-members">
+                        <thead>
+                            <tr>
+                                <th class="rank">#</th>
+                                <th>Membrer</th>
+                                <th class="points">Points</th>
+                            </tr>
+                        </thead>
+                        <tbody id="blue_team_table">
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="./assets/js/team.js"></script>
+    <script>
+        
+        function getFirstThursdayOfMonth(today = new Date()) {
+            const firstThursday = new Date(today.getFullYear(), today.getMonth(), 1);
+            while (firstThursday.getDay() !== 4) { 
+                firstThursday.setDate(firstThursday.getDate() + 1); 
+            }
+            return firstThursday;
+        }
+
+        
+        function getOtherThursdays(today = new Date()) {
+            const thursdays = [];
+            const firstThursday = getFirstThursdayOfMonth(today);
+            let nextThursday = new Date(firstThursday);
+            nextThursday.setDate(firstThursday.getDate() + 7); 
+
+            while (nextThursday.getMonth() === today.getMonth()) {
+                thursdays.push(new Date(nextThursday));
+                nextThursday.setDate(nextThursday.getDate() + 7); 
+            }
+
+            return thursdays;
+        }
+
+        function formatDate(date) {
+            return date.toLocaleDateString("en-US", {
+                weekday: "short",
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+            });
+        }
+
+        function generateEvents() {
+            const today = new Date();
+            const firstThursday = getFirstThursdayOfMonth(today);
+            const otherThursdays = getOtherThursdays(today);
+
+            const eventGrid = document.getElementById("events-grid");
+            eventGrid.innerHTML = ""; 
+
+            
+            const ctfNightEvent = document.createElement("div");
+            ctfNightEvent.className = "event-card";
+            ctfNightEvent.innerHTML = `
+        <div class="event-date">${formatDate(firstThursday)}</div>
+        <h3>CTF Night</h3>
+        <p>An exciting evening to solve security challenges in a competitive and fun atmosphere.</p>
+        <span class="difficulty expert">Intermediate</span>
+    `;
+            eventGrid.appendChild(ctfNightEvent);
+
+            
+            otherThursdays.forEach((thursday) => {
+                const eventCard = document.createElement("div");
+                eventCard.className = "event-card";
+                eventCard.innerHTML = `
+            <div class="event-date">${formatDate(thursday)}</div>
+            <h3>Hack the Box</h3>
+            <p>Explore vulnerable virtual machines to sharpen your hacking skills.</p>
+            <span class="difficulty intermediate">Noob</span>
+        `;
+                eventGrid.appendChild(eventCard);
+            });
+
+            
+            const blueRedTeamEventDate = new Date(today.getFullYear(), today.getMonth() + 1, 0); 
+            const blueRedTeamEventCard = document.createElement("div");
+            blueRedTeamEventCard.className = "event-card";
+            blueRedTeamEventCard.innerHTML = `
+        <h3>Blue Team & Red Teaming</h3>
+        <p>Live simulations of attacks and defenses on a dedicated server at our premises.</p>
+        <span class="difficulty advanced">Advanced</span>
+    `;
+            eventGrid.appendChild(blueRedTeamEventCard);
+        }
+        generateEvents();
+
+    </script>
+</body>
+
+</html>

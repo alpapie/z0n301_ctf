@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./assets/css/admin.css">
+</head>
+<body>
+    <div class="matrix-bg"></div>
+    <div class="grid"></div>
+
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo"> <a style="text-decoration: none;  color: inherit; " href="/">Z0N301 D4K4r</a></div>
+            <div class="nav-links">
+                <a href="#dashboard">Dashboard</a>
+                <a href="#users">Users</a>
+                <div class="nav-content">
+                    <div class="nav-links">
+                        <button onclick="openModal('createUser')" class="btn">new users</button>
+                        <button onclick="openModal('addPoints')" class="btn">Allocate Points</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modal Création Utilisateur -->
+    <div id="createUserModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Add users</h2>
+                <button class="close-modal" onclick="closeModal('createUser')">&times;</button>
+            </div>
+            <form onsubmit="handleCreateUser(event)">
+                <div class="form-group">
+                    <label class="form-label">Token form</label>
+                    <input type="password" class="form-input" name="token" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Users</label>
+                    <textarea name="users" id="" class="form-input" rows="10"></textarea>
+                </div>
+                <div class="btn-group">
+                    <button type="submit" class="btn">Créer</button>
+                    <button type="button" class="btn btn-cancel" onclick="closeModal('createUser')">Annuler</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Attribution Points -->
+    <div id="addPointsModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Attribuer des points</h2>
+                <button class="close-modal" onclick="closeModal('addPoints')">&times;</button>
+            </div>
+            <form onsubmit="handleAddPoints(event)">
+                <div class="form-group">
+                    <label class="form-label">Token form</label>
+                    <input type="password" class="form-input" name="token" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Utilisateur</label>
+                    <select class="form-input" required name="users" multiple id="users-list">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Points</label>
+                    <input type="number" class="form-input" required name="point">
+                </div>
+                <div class="btn-group">
+                    <button type="submit" class="btn">attibut</button>
+                    <button type="button" class="btn btn-cancel" onclick="closeModal('addPoints')">Annuler</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        Opération réussie !
+    </div>
+
+    <div class="container">
+        <div class="welcome-banner">
+            <h1>Z0N301 D4K4r Dashboard</h1>
+            <p>Bienvenue dans votre centre de contrôle</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>Top Utilisateurs</h3>
+                <table >
+                    <tr>
+                        <th>Utilisateur</th>
+                        <th>Score</th>
+                        <th>Team</th>
+                    </tr>
+                    <tbody id="table-body">
+
+                    </tbody>
+                    <!-- <tr>
+                        <td>Hacker_Elite</td>
+                        <td>2850</td>
+                        <td><span class="badge">Admin</span></td>
+                    </tr> -->
+                </table>
+            </div>
+        
+        </div>
+        
+    </div>
+    
+    <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/dashboard.js"></script>
+</body>
+</html>

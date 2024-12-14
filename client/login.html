@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        :root {
+            --neon-green: #39ff14;
+            --dark-bg: #0a0a0a;
+            --matrix-green: #00ff41;
+            --card-bg: rgba(16, 16, 16, 0.95);
+            --accent: #ff003c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--neon-green);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+            background: repeating-linear-gradient(180deg,
+                    rgba(57, 255, 20, 0.15) 0,
+                    rgba(57, 255, 20, 0.15) 1px,
+                    transparent 1px,
+                    transparent 2px);
+            z-index: -1;
+            animation: scroll 20s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 0 100%;
+            }
+        }
+
+        .login-container {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 5px;
+            border: 1px solid var(--neon-green);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--neon-green);
+            text-shadow: 0 0 5px var(--neon-green);
+            animation: glitch 1s infinite;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--neon-green);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 35px;
+            color: var(--neon-green);
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 1rem;
+            background: transparent;
+            color: var(--neon-green);
+            border: 2px solid var(--neon-green);
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+
+        .login-button:hover {
+            background: var(--neon-green);
+            color: var(--dark-bg);
+            box-shadow: 0 0 20px var(--neon-green);
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .options a {
+            color: var(--neon-green);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .options a:hover {
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        .divider {
+            margin: 2rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--neon-green);
+            opacity: 0.3;
+        }
+
+        .divider span {
+            background: var(--card-bg);
+            padding: 0 1rem;
+            position: relative;
+            color: var(--neon-green);
+        }
+
+
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 0.05em 0 0 var(--accent), -0.05em -0.025em 0 var(--neon-green);
+            }
+
+            14% {
+                text-shadow: 0.05em 0 0 var(--accent), -0.05em -0.025em 0 var(--neon-green);
+            }
+
+            15% {
+                text-shadow: -0.05em -0.025em 0 var(--accent), 0.025em 0.025em 0 var(--neon-green);
+            }
+
+            49% {
+                text-shadow: -0.05em -0.025em 0 var(--accent), 0.025em 0.025em 0 var(--neon-green);
+            }
+
+            50% {
+                text-shadow: 0.025em 0.05em 0 var(--accent), 0.05em 0 0 var(--neon-green);
+            }
+
+            99% {
+                text-shadow: 0.025em 0.05em 0 var(--accent), 0.05em 0 0 var(--neon-green);
+            }
+
+            100% {
+                text-shadow: -0.025em 0 0 var(--accent), -0.025em -0.025em 0 var(--neon-green);
+            }
+        }
+
+        .grid {
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background-image:
+                linear-gradient(rgba(57, 255, 20, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(57, 255, 20, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(100vh) rotateX(60deg);
+            animation: grid-move 15s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes grid-move {
+            0% {
+                transform: perspective(100vh) rotateX(60deg) translateY(0);
+            }
+
+            100% {
+                transform: perspective(100vh) rotateX(60deg) translateY(50px);
+            }
+        }
+        .error{
+            display: none;
+            color: red;
+            justify-content: center;
+            padding-bottom: 6px;
+        }
+        #troll-gif{
+            width: 10vw;
+            height: 10vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="matrix-bg"></div>
+    <div class="grid"></div>
+    <div class="login-container">
+        <div class="logo">Z0N301 D4K4r</div>
+        <p class="error" id="error_page">Login or password incorrect</p>
+        <p id="message"></p>
+        <img id="troll-gif" src="" alt="Troll GIF" style="max-width: 100%; height: auto; display: none;">
+        <audio id="troll-sound" preload="auto"></audio>
+        <form id="form-login">
+            <div class="form-group">
+                <label for="login">Login</label>
+                <!--md5 hash  -->
+                <input type="hidden" value="7ed201fa20d25d22b291dc85ae9e5ced" name="secret_value" >
+                <input type="text" id="login" name="login" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password"  name="password" id="mypasword" required>
+                <button type="button" class="password-toggle" id="password-input">👁️</button>
+            </div>
+
+            <button type="submit" class="login-button">Login</button>
+        </form>
+    </div>
+</body>
+<script src="./assets/js/login.js"></script>
+</html>
